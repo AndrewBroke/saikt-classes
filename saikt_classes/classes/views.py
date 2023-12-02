@@ -4,4 +4,20 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    context = {
+        "title": "Классы"
+    }
+    return render(request, 'classes/index.html', context)
+
+def group(request):
+    context = {
+        "title": "Группа"
+    }
+    return render(request, 'classes/group.html', context)
+
+
+def student(request):
+    context = {
+        "title": "Профиль"
+    }
+    return render(request, 'classes/student.html', context)
