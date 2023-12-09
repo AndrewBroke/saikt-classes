@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'classes/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'classes/css/style.css' %}">
+    {% block load_css %}{% endblock load_css %}
+    <title> {{ title }} </title>
+</head>
+<body>
+
+    {% block sidebar %}
+    <aside id='aside-bar'>
+        <div id='side-logo'>
+            <img src="{% static 'classes/img/Logo.png' %}">
+        </div>
+        <div id='tabs'>
+            <div id='courses'><a href="{% url "index" %}"><img src="{% static "classes/img/Dashboard.svg" %}" alt=""></a></div>
+            <div id='students'><a href="#"><img src="{% static "classes/img/Students.svg" %}" alt=""></a></div>
+        </div>
+    </aside>
+    {% endblock sidebar %}
+    {% block header %}
+    <header>
+
+    </header>
+    {% endblock header %}
+
+    <main>
+        {% block content %}
+        default
+        {% endblock content %}
+    </main>
+    {% block footer %}
+    <footer>
+
+    </footer>
+    {% endblock footer %}
+
+    <script src="{% static 'classes/js/index.js' %}"></script>
+    {% block load_js %}{% endblock load_js %}
+</body>
