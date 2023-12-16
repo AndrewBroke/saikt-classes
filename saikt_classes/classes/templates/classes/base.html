@@ -15,29 +15,37 @@
     <aside id='aside-bar'>
         <div id='side-logo'>
             <img src="{% static 'classes/img/Logo.png' %}">
+            <div class='underline'></div>
         </div>
-        <div id='tabs'>
-            <div id='courses'><a href="{% url "index" %}"><img src="{% static "classes/img/Dashboard.svg" %}" alt=""></a></div>
-            <div id='students'><a href="#"><img src="{% static "classes/img/Students.svg" %}" alt=""></a></div>
+        <div id="panel">
+            <div id='tabs'>
+                <div id='courses'><a href="{% url "index" %}"><img src="{% static "classes/img/Dashboard.svg" %}" alt=""></a></div>
+                <div id='students'><a href="#"><img src="{% static "classes/img/Students.svg" %}" alt=""></a></div>
+            </div>
+            <div id='settings'>
+                <a href="#"><img src="{% static "classes/img/Settings.svg" %}" alt=""></a>
+            </div>
         </div>
     </aside>
     {% endblock sidebar %}
-    {% block header %}
-    <header>
+    <div id="wrapper">
+        {% block header %}
+        <header>
 
-    </header>
-    {% endblock header %}
+        </header>
+        {% endblock header %}
 
-    <main>
-        {% block content %}
-        default
-        {% endblock content %}
-    </main>
-    {% block footer %}
-    <footer>
+        <main>
+            {% block content %}
+            default
+            {% endblock content %}
+        </main>
+        {% block footer %}
+        <footer>
 
-    </footer>
-    {% endblock footer %}
+        </footer>
+        {% endblock footer %}
+    </div>
 
     <script src="{% static 'classes/js/index.js' %}"></script>
     {% block load_js %}{% endblock load_js %}
