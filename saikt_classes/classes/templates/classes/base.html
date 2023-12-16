@@ -14,7 +14,7 @@
     {% block sidebar %}
     <aside id='aside-bar'>
         <div id='side-logo'>
-            <img src="{% static 'classes/img/Logo.png' %}">
+            <a href="{% url "index" %}"><img src="{% static 'classes/img/Logo.png' %}"></a>
             <div class='underline'></div>
         </div>
         <div id="panel">
@@ -29,22 +29,23 @@
     </aside>
     {% endblock sidebar %}
     <div id="wrapper">
-        {% block header %}
         <header>
+        {% block header %}
 
-        </header>
         {% endblock header %}
+        </header>
 
         <main>
             {% block content %}
             default
             {% endblock content %}
         </main>
-        {% block footer %}
-        <footer>
 
-        </footer>
+        <footer>
+        {% block footer %}
+
         {% endblock footer %}
+        </footer>
     </div>
 
     <script src="{% static 'classes/js/index.js' %}"></script>
