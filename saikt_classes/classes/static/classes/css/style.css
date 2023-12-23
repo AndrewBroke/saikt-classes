@@ -78,6 +78,13 @@ header {
     margin-bottom: 1vw;
 }
 
+#header-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+
 #header-underline {
     background-color: rgb(204, 204, 204);
     width: 100%;
@@ -86,8 +93,9 @@ header {
 
 #cards {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -95,6 +103,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     padding: 1vw;
+    margin: 0.5vw;
     background-color: rgb(240, 240, 240);
     box-shadow: 0.1vw 0.1vw 0.2vw rgb(214, 214, 214);
     border-radius: 1vw;

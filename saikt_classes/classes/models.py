@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 class Course(models.Model):
@@ -8,8 +9,9 @@ class Course(models.Model):
 
 class Weekdays(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False)
+    shortname = models.CharField(max_length=150, null=True, blank=True, default="None")
     def __str__(self):
-        return self.name
+        return self.shortname
 
 class Group(models.Model):
     course = models.ForeignKey(
