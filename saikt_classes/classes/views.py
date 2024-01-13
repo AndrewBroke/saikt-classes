@@ -30,10 +30,13 @@ def group(request, course_id):
         wd_output += str(i) + ", "
     wd_output = wd_output[:-2]
 
+    students = Student.objects.filter(course_id = course_id)
+
 
 
     context = {
-        "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}"
+        "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
+        "students": students
     }
     return render(request, 'classes/group.html', context)
 

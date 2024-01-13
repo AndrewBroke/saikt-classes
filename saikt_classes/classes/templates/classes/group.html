@@ -2,5 +2,33 @@
 {% load static %}
 {% load extras %}
 
+{% block load_css %}
+<link rel="stylesheet" href="{% static 'classes/css/group.css' %}">
+{% endblock load_css %}
+
 {% block content %}
+<div id="table-container">
+    <form action="#" method='POST'>
+        <table>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Роль</th>
+                <th>Баллы</th>
+                <th>Занятие</th>
+                <th>Бонус</th>
+            </tr>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.surname }}</td>
+                <td>{{ student.role }}</td>
+                <td>{{ student.xp_score }}</td>
+                <td class='controls-course'><input type="number" name='lesson' value='10' min='0' max='10'></td>
+                <td class='controls-course'><input type="number" name='bonus' value='0' min='-10' max='10'></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
 {% endblock content %}

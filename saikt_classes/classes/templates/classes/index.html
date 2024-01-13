@@ -6,8 +6,7 @@
 <section id='cards'>
     {% for group in groups %}
     <div class='card'>
-        {% comment %} <a href="{% url "group" "{{ group.course }}" %}">  {% endcomment %}
-        <a href="#"></a>
+        <a href="{% url "group" group.pk %}"> 
             <div class='card-header'>
                 <div class="card-logo"><img src="{{ group.course.logo.url }}" alt=""></div>
                 <h3 class="card-name">{{ group.course }}</h3>
