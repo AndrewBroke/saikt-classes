@@ -4,6 +4,7 @@ from django import forms
 # Create your models here.
 class Course(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False)
+    logo = models.ImageField(upload_to='courses/', blank=True)
     def __str__(self):
         return self.name
 
@@ -35,7 +36,7 @@ class Role(models.Model):
 
 class Achievement(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True, upload_to='achivments/')
     description = models.TextField(null=False, blank=True)
     def __str__(self):
         return self.name

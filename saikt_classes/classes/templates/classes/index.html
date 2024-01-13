@@ -6,32 +6,35 @@
 <section id='cards'>
     {% for group in groups %}
     <div class='card'>
-        <div class='card-header'>
-            <div class="card-logo"><img src="{% static "classes/img/Unity.svg" %}" alt=""></div>
-            <h3 class="card-name">{{ group.course }}</h3>
-        </div>
-        <div class="card-underline"></div>
-        <div class='card-content'>
-            <section class='card-section'>
-                <div class='card-section-logo'><img src="{% static "classes/img/Calendar.svg" %}" alt=""></div>
-                {% for wd in group.weekdays.all %}
-                <p class='card-section-text'>
-                    {{ wd.shortname }}
-                    {% if forloop.last is not True %}<pre> - </pre>{% endif %}
-                </p>
-                {% endfor %}
-            </section>
-            <section class='card-section'>
-                <div class='card-section-logo'><img src="{% static "classes/img/Clock.svg" %}" alt=""></div>
-                <p class='card-section-text'>{{ group.time|time:"H:i" }}</p>
-            </section>
-            <section class='card-section'>
-                <div class='card-section-logo'><img src="{% static "classes/img/Group.svg" %}" alt=""></div>
-                <p class='card-section-text'>
-                    {{ students_count|get_at_index:forloop.counter0 }}
-                </p>
-            </section>
-        </div>
+        {% comment %} <a href="{% url "group" "{{ group.course }}" %}">  {% endcomment %}
+        <a href="#"></a>
+            <div class='card-header'>
+                <div class="card-logo"><img src="{{ group.course.logo.url }}" alt=""></div>
+                <h3 class="card-name">{{ group.course }}</h3>
+            </div>
+            <div class="card-underline"></div>
+            <div class='card-content'>
+                <section class='card-section'>
+                    <div class='card-section-logo'><img src="{% static "classes/img/Calendar.svg" %}" alt=""></div>
+                    {% for wd in group.weekdays.all %}
+                    <p class='card-section-text'>
+                        {{ wd.shortname }}
+                        {% if forloop.last is not True %}<pre> - </pre>{% endif %}
+                    </p>
+                    {% endfor %}
+                </section>
+                <section class='card-section'>
+                    <div class='card-section-logo'><img src="{% static "classes/img/Clock.svg" %}" alt=""></div>
+                    <p class='card-section-text'>{{ group.time|time:"H:i" }}</p>
+                </section>
+                <section class='card-section'>
+                    <div class='card-section-logo'><img src="{% static "classes/img/Group.svg" %}" alt=""></div>
+                    <p class='card-section-text'>
+                        {{ students_count|get_at_index:forloop.counter0 }}
+                    </p>
+                </section>
+            </div>
+        </a>
     </div>
     {% endfor %}
 </section>
