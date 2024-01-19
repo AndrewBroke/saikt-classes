@@ -23,7 +23,7 @@ td {
     border-bottom: 0.1vw solid rgb(209, 209, 209);
     font-size: 1.5vw;
     text-align: center;
-    width: 8vw;
+    max-width: 8vw;
 }
 
 table tr:last-child td {
@@ -51,4 +51,8 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance:textfield;
+}
+
+.input-show {
+    display: none;
 }
