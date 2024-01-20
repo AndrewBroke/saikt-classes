@@ -56,3 +56,37 @@ input[type=number] {
 .input-show {
     display: none;
 }
+
+#control_panel {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 1vw;
+    padding: 0.5vw;
+}
+
+#control_panel button {
+    padding: 0.5vw;
+}
+
+#submitBtns {
+    display: flex;
+    background-color: #c3e5ff;
+}
+
+.target_flex {
+    display: flex;
+}
+
+.target {
+    display: none;
+}
+
+#openBtn {
+    border-radius: 1vw 0 0 1vw;
+    background-color: #d4fdbb;
+}
+
+#closeBtn {
+    background-color: #ffc5c5;
+    border-radius: 0 1vw 1vw 0;
+}

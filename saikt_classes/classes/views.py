@@ -32,6 +32,11 @@ def group(request, course_id):
 
     students = Student.objects.filter(course_id = course_id)
 
+    if request.method == "POST":
+        for student in students:
+            xp_value = request.POST.get(str(student.pk))
+            student.xp_score = student.xp_score + int(xp_value)
+            student.save()
 
 
     context = {
