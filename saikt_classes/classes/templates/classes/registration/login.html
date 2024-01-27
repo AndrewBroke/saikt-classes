@@ -1,0 +1,23 @@
+{% extends 'classes/base.html' %}
+{% load static %}
+{% load extras %}
+
+{% block load_css %}
+<link rel="stylesheet" href="{% static 'classes/css/login.css' %}">
+{% endblock load_css %}
+
+{% block content %}
+<form method="POST" novalidate>
+	{% csrf_token %}
+	<h2>Авторизация</h2>
+	<div class="input-wrapper">
+		<label for="id_username">Имя профиля</label>
+		<input type="text" name="username" maxlength="65" required id="id_username" class="text-input">
+	</div>
+	<div class="input-wrapper">
+		<label for="id_password">Пароль</label>
+		<input type="password" name="password" maxlength="65" required id="id_password" class="text-input">
+	</div>
+	<input type="submit" value="Войти" id="submit-btn">
+</form>
+{% endblock content %}

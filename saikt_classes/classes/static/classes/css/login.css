@@ -1,0 +1,44 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+label {
+    font-size: 1.5vw;
+    margin-bottom: 0.5vw;
+}
+
+h2 {
+    font-size: 3vw;
+    margin-bottom: 1vw;
+}
+form {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #c3e5ff;
+    border-radius: 1vw;
+    padding: 1vw;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#submit-btn {
+    height: 4vw;
+    padding: 1vw;
+    font-size: 1.5vw;
+    border-radius: 0.5vw;
+    background-color: #d4fdbb;
+    margin-top: 1vw;
+}
+.text-input {
+    height: 2.5vw;
+    font-size: 1.5vw;
+}

@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from classes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('classes/', include("classes.urls"))
+    path('classes/', include("classes.urls"), name="classes"),
+    path("login/", views.login, name="login")
 ]
 
 if settings.DEBUG:

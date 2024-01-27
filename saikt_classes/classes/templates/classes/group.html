@@ -32,16 +32,18 @@
 
             {% endfor %}
         </table>
-        <div id="control_panel">
-            <button type="button" id="openBtn">Изменить</button>
-            <div id="specialBtns" class="target">
-                <div id="submitBtns">
-                    <button type="submit" id="lessonBtn">Провести занятие</button>
-                    <button type="submit" id="bonusBtn">Добавить бонусы</button>
+        {% if user.is_staff or student.is_right_hand %}
+            <div id="control_panel">
+                <button type="button" id="openBtn">Изменить</button>
+                <div id="specialBtns" class="target">
+                    <div id="submitBtns">
+                        <button type="submit" id="lessonBtn">Провести занятие</button>
+                        <button type="submit" id="bonusBtn">Добавить бонусы</button>
+                    </div>
+                    <button type="button" id="closeBtn">Отмена</button>
                 </div>
-                <button type="button" id="closeBtn">Отмена</button>
             </div>
-        </div>
+        {% endif %}
     </form>
 </div>
 {% endblock content %}

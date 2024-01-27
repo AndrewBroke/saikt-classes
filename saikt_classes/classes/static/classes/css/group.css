@@ -64,13 +64,21 @@ input[type=number] {
     padding: 0.5vw;
 }
 
-#control_panel button {
-    padding: 0.5vw;
+button {
+    height: 4vw;
+    padding: 1vw;
+    font-size: 1.5vw;
+    border-radius: 0.5vw;
 }
 
-#submitBtns {
-    display: flex;
+#submitBtns button:first-child {
     background-color: #c3e5ff;
+    margin: 0 1vw 0 1vw;
+}
+
+#submitBtns button:last-child {
+    background-color: #c3e5ff;
+    margin: 0 1vw 0 0;
 }
 
 .target_flex {
@@ -82,11 +90,12 @@ input[type=number] {
 }
 
 #openBtn {
-    border-radius: 1vw 0 0 1vw;
     background-color: #d4fdbb;
 }
 
 #closeBtn {
     background-color: #ffc5c5;
-    border-radius: 0 1vw 1vw 0;
+}
+
+#lessonBtn {
 }

@@ -34,6 +34,10 @@
             {% block header %}
             <div id="header-content">
                 <h1>{{ title }}</h1>
+                <div id="profile">
+                    {% if user.is_authenticated %}{{ user.username }}{% else %}Имя{% endif %}
+                    <a href="#" id="exit-btn">Выйти</a>
+                </div>
             </div>
             <div id="header-underline"></div>
             {% endblock header %}

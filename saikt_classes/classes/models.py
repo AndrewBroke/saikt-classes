@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Course(models.Model):
@@ -21,7 +22,7 @@ class Group(models.Model):
     weekdays = models.ManyToManyField(Weekdays)
     time = models.TimeField()
 
-    def str(self):
+    def __str__(self):
         wd = self.weekdays.all()
         wd_output = ""
         for i in wd:
@@ -43,6 +44,7 @@ class Achievement(models.Model):
 
 class Student(models.Model):
     course_id = models.ForeignKey('Group', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, default=None)
     xp_score = models.IntegerField(null=False, default=0)
     age = models.IntegerField(null=False)
     name = models.CharField(max_length=150, null=False, blank=False)

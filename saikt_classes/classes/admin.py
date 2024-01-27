@@ -5,8 +5,8 @@ from .models import *
 
 admin.site.register(Course)
 admin.site.register(Weekdays)
-admin.site.register(Group)
 admin.site.register(Role)
 admin.site.register(Achievement)
 admin.site.register(Student)
 admin.site.register(LogEvent)
+admin.site.register(Group)

@@ -1,13 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
+from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth.decorators import login_required
 
 from .models import *
+from .forms import LoginForm
 
 # Create your views here.
 
 def index(request):
-    groups = Group.objects.all()
+    if request.user.is_staff:
+        groups = Group.objects.all()
+    else:
+        student = Student.objects.get(user = request.user)
+        groups = Group.objects.filter(pk = student.course_id.pk)
     students_count = []
+    
 
     for group in groups:
         students = Student.objects.filter(course_id = group.pk)
@@ -21,7 +30,13 @@ def index(request):
     }
     return render(request, 'classes/index.html', context)
 
+@login_required(login_url="login")
 def group(request, course_id):
+
+    student = Student.objects.get(user = request.user)
+    if student.course_id.pk != course_id and not request.user.is_staff:
+        return redirect('index')
+
     course = Group.objects.get(pk = course_id)
 
     wd = course.weekdays.all()
@@ -41,7 +56,8 @@ def group(request, course_id):
 
     context = {
         "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
-        "students": students
+        "students": students,
+        "student": student
     }
     return render(request, 'classes/group.html', context)
 
@@ -51,3 +67,36 @@ def student(request):
         "title": "Профиль"
     }
     return render(request, 'classes/student.html', context)
+
+def login(request):
+
+    if request.method == "GET":
+        form = LoginForm()
+
+        context = {
+            "title": "Авторизация",
+            "form": form
+        }
+        return render(request, 'classes/registration/login.html', context)
+    
+    else:
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request,username=username,password=password)
+            print("форма валидна")
+            if user:
+                print("юзер чота там")
+                auth_login(request, user)
+                return redirect('index')
+        
+        context = {
+            "title": "Авторизация",
+            "form": form
+        }
+        return render(request, 'classes/registration/login.html', context)
+
+    
+    
