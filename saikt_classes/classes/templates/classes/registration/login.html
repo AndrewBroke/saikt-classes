@@ -9,14 +9,13 @@
 {% block content %}
 <form method="POST" novalidate>
 	{% csrf_token %}
-	<h2>Авторизация</h2>
+	<div id="login-logo"><img src="{% static "classes/img/person.png" %}" alt=""></div>
+	<p id='login-p'>Вход</p>
 	<div class="input-wrapper">
-		<label for="id_username">Имя профиля</label>
-		<input type="text" name="username" maxlength="65" required id="id_username" class="text-input">
+		<input type="text" name="username" maxlength="65" required id="id_username" class="text-input" placeholder="Имя профиля">
 	</div>
 	<div class="input-wrapper">
-		<label for="id_password">Пароль</label>
-		<input type="password" name="password" maxlength="65" required id="id_password" class="text-input">
+		<input type="password" name="password" maxlength="65" required id="id_password" class="text-input" placeholder="Пароль">
 	</div>
 	<input type="submit" value="Войти" id="submit-btn">
 </form>

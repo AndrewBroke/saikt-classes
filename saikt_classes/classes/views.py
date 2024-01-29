@@ -9,6 +9,7 @@ from .forms import LoginForm
 
 # Create your views here.
 
+@login_required(login_url="login")
 def index(request):
     if request.user.is_staff:
         groups = Group.objects.all()
@@ -99,4 +100,6 @@ def login(request):
         return render(request, 'classes/registration/login.html', context)
 
     
-    
+
+def logout(request):
+    return redirect("index")

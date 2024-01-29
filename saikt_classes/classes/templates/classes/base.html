@@ -35,8 +35,9 @@
             <div id="header-content">
                 <h1>{{ title }}</h1>
                 <div id="profile">
-                    {% if user.is_authenticated %}{{ user.username }}{% else %}Имя{% endif %}
-                    <a href="#" id="exit-btn">Выйти</a>
+                    {% if user.is_authenticated %}{{ user.username }}
+                    <a href="{% url "logout" %}" id="exit-btn"><img src="{% static "classes/img/exit-door.png" %}" alt=""></a>
+                    {% else %}<a href="{% url "login" %}">Имя</a>{% endif %}
                 </div>
             </div>
             <div id="header-underline"></div>
