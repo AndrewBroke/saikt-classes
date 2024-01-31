@@ -11,93 +11,104 @@ from .forms import LoginForm
 
 @login_required(login_url="login")
 def index(request):
-    if request.user.is_staff:
-        groups = Group.objects.all()
-    else:
-        student = Student.objects.get(user = request.user)
-        groups = Group.objects.filter(pk = student.course_id.pk)
-    students_count = []
+    try:
+        if request.user.is_staff:
+            groups = Group.objects.all()
+        else:
+            student = Student.objects.get(user = request.user)
+            groups = Group.objects.filter(pk = student.course_id.pk)
+        students_count = []
     
 
-    for group in groups:
-        students = Student.objects.filter(course_id = group.pk)
-        students_count.append(len(students))
+        for group in groups:
+            students = Student.objects.filter(course_id = group.pk)
+            students_count.append(len(students))
 
 
-    context = {
-        "title": "Группы",
-        "groups": groups,
-        "students_count": students_count
-    }
-    return render(request, 'classes/index.html', context)
+        context = {
+            "title": "Группы",
+            "groups": groups,
+            "students_count": students_count
+        }
+
+        return render(request, 'classes/index.html', context)
+    except:
+        return render(request, 'classes/index.html')
 
 @login_required(login_url="login")
 def group(request, course_id):
+    try:
+        student = Student.objects.get(user = request.user)
+        if student.course_id.pk != course_id and not request.user.is_staff:
+            return redirect('index')
 
-    student = Student.objects.get(user = request.user)
-    if student.course_id.pk != course_id and not request.user.is_staff:
-        return redirect('index')
+        course = Group.objects.get(pk = course_id)
 
-    course = Group.objects.get(pk = course_id)
+        wd = course.weekdays.all()
+        wd_output = ""
+        for i in wd:
+            wd_output += str(i) + ", "
+        wd_output = wd_output[:-2]
 
-    wd = course.weekdays.all()
-    wd_output = ""
-    for i in wd:
-        wd_output += str(i) + ", "
-    wd_output = wd_output[:-2]
+        students = Student.objects.filter(course_id = course_id)
 
-    students = Student.objects.filter(course_id = course_id)
-
-    if request.method == "POST":
-        for student in students:
-            xp_value = request.POST.get(str(student.pk))
-            student.xp_score = student.xp_score + int(xp_value)
-            student.save()
+        if request.method == "POST":
+            for student in students:
+                xp_value = request.POST.get(str(student.pk))
+                student.xp_score = student.xp_score + int(xp_value)
+                student.save()
 
 
-    context = {
-        "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
-        "students": students,
-        "student": student
-    }
-    return render(request, 'classes/group.html', context)
+        context = {
+            "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
+            "students": students,
+            "student": student
+        }
+        return render(request, 'classes/group.html', context)
+    except:
+        return render(request, 'classes/group.html')
 
 
 def student(request):
-    context = {
-        "title": "Профиль"
-    }
-    return render(request, 'classes/student.html', context)
+    try:
+        context = {
+            "title": "Профиль"
+        }
+        return render(request, 'classes/student.html', context)
+    except:
+        return render(request, 'classes/student.html')
 
 def login(request):
+    try:
+        if request.method == "GET":
+            form = LoginForm()
 
-    if request.method == "GET":
-        form = LoginForm()
-
-        context = {
-            "title": "Авторизация",
-            "form": form
-        }
-        return render(request, 'classes/registration/login.html', context)
-    
-    else:
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request,username=username,password=password)
-            print("форма валидна")
-            if user:
-                print("юзер чота там")
-                auth_login(request, user)
-                return redirect('index')
+            context = {
+                "title": "Авторизация",
+                "form": form
+            }
+            return render(request, 'classes/registration/login.html', context)
         
-        context = {
-            "title": "Авторизация",
-            "form": form
-        }
-        return render(request, 'classes/registration/login.html', context)
+        else:
+            form = LoginForm(request.POST)
+
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(request,username=username,password=password)
+                print("форма валидна")
+                if user:
+                    print("юзер чота там")
+                    auth_login(request, user)
+                    return redirect('index')
+            
+            context = {
+                "title": "Авторизация",
+                "form": form
+            }
+            return render(request, 'classes/registration/login.html', context)
+    except:
+        return render(request, 'classes/registration/login.html')
 
     
 

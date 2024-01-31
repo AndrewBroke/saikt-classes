@@ -65,3 +65,41 @@ form {
 ::-ms-input-placeholder {
     color: rgb(238, 238, 238);
 }
+
+/* Адаптив */
+@media screen and (max-width : 420px) {
+
+    #login-logo img {
+        top: 25%;
+        left: 46%;
+    }
+
+    form {
+        width: 80%;
+        height: 40%;
+        border-radius: 3vw;
+    }
+
+    #login-logo img {
+        width: 20vw;
+    }
+
+    #login-p {
+        font-size: 6vw;
+    }
+
+    .input-wrapper {
+        height: 6vw;
+        margin-bottom: 1.5vw;
+        padding: 0.5vw 2vw;
+    }
+
+    #submit-btn {
+        font-size: 4vw;
+        height: 6vw;
+    }
+
+    .text-input {
+        font-size: 4vw;
+    }
+}
