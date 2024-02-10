@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.decorators import login_required
 
+from datetime import datetime
 from .models import *
 from .forms import LoginForm
 
@@ -38,8 +39,8 @@ def index(request):
 @login_required(login_url="login")
 def group(request, course_id):
     try:
-        student = Student.objects.get(user = request.user)
-        if student.course_id.pk != course_id and not request.user.is_staff:
+        sender = Student.objects.get(user = request.user)
+        if sender.course_id.pk != course_id and not request.user.is_staff:
             return redirect('index')
 
         course = Group.objects.get(pk = course_id)
@@ -53,16 +54,21 @@ def group(request, course_id):
         students = Student.objects.filter(course_id = course_id)
 
         if request.method == "POST":
+
             for student in students:
                 xp_value = request.POST.get(str(student.pk))
                 student.xp_score = student.xp_score + int(xp_value)
                 student.save()
+                
+                #Логи
+                now = datetime.now()
+                datetime = now.strftime("%d/%m/%Y %H:%M:%S")
 
 
         context = {
             "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
             "students": students,
-            "student": student
+            "student": sender
         }
         return render(request, 'classes/group.html', context)
     except:
@@ -96,9 +102,7 @@ def login(request):
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
                 user = authenticate(request,username=username,password=password)
-                print("форма валидна")
                 if user:
-                    print("юзер чота там")
                     auth_login(request, user)
                     return redirect('index')
             

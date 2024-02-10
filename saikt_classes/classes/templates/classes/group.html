@@ -9,30 +9,45 @@
 {% block content %}
 <div id="table-container">
     <form action="#" method='POST'>{% csrf_token %}
-        <table>
-            <tr>
-                <th>Имя</th>
-                <th>Фамилия</th>
-                <th>Роль</th>
-                <th>Баллы</th>
-                <th class='controls-course input-show'>Занятие</th>
-                <th class='controls-course input-show'>Бонус</th>
-            </tr>
-            {% for student in students %} 
-            <tr>
-                <td>{{ student.name }}</td>
-                <td>{{ student.surname }}</td>
-                <td>{% if student.role %}{{ student.role }}{% else %}Нет{% endif %}</td>
-                <td>{{ student.xp_score }}</td>
-                <td class='controls-course input-show'><input class="lesson-input" type="number" name='lesson' value='10' min='0' max='10'></td>
-                <td class='controls-course input-show'><input class="bonus-input" type="number" name='bonus' value='0' min='-10' max='10'></td>
-            </tr>
+        <div id="cards-container">
+            {% for student in students %}
+            <div class="card-wrapper">
+                <div class="student-card">
+                    <div class="student-info">
+                        <img src="{% static "classes/img/man2.png" %}" alt="">
+                        <span class="student-name">{{ student.name }} {{ student.surname }}</span>
+                        <span class="student-role">({% if student.role %}{{ student.role }}{% else %}Нет{% endif %})</span>
+                    </div>
+                    <div class="student-xp">
+                        <span>{{ student.xp_score }}</span>
+                        <img class="points-logo" src="{% static "classes/img/points.png" %}" alt="">
+                    </div>
+                </div>
+                <section class="controls-course input-show">
+                    <div class="adding-wrapper">
+                        <img class="adding-logo" src="{% static "classes/img/programming.png" %}" alt="">
+                        <div class="input-wrapper">
+                            <input type="number" class="lesson-input" name='lesson' value='10' min='0' max='10'>
+                            <img class="input-point" src="{% static "classes/img/points.png" %}" alt="">
+                        </div>
+                    </div>
+                    <div class="adding-wrapper">
+                        <img class="adding-logo" src="{% static "classes/img/skills.png" %}" alt="">
+                        <div class="input-wrapper">
+                            <input class="bonus-input" type="number" name='bonus' value='0' min='-10' max='10'>
+                            <img class="input-point" src="{% static "classes/img/points.png" %}" alt="">
+                        </div>
+                </section>
+            </div>
 
             <input type="hidden" class="xp_value" name="{{ student.pk }}">
 
             {% endfor %}
-        </table>
+        </div>
         {% if user.is_staff or student.is_right_hand %}
+
+            <input type="hidden" class="type_input" name="type">
+
             <div id="control_panel">
                 <button type="button" id="openBtn">Изменить</button>
                 <div id="specialBtns" class="target">

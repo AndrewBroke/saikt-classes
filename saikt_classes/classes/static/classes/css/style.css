@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;800&family=Open+Sans:wght@300;400;500;700;800&display=swap');
 body {
     display: flex;
+    min-height: 100vh;
 }
 
 img {
@@ -39,7 +40,7 @@ img {
     align-items: center;
     width: 5vw;
     padding: 1vw 0.5vw 3vw 0.5vw;
-    height: 100vh;
+    min-height: 100%;
 }
 
 #panel {
@@ -211,14 +212,27 @@ header {
         height: 0.2vw;
     }
 
+    #cards {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
     .card {
-        width: 35vw;
-        height: 27vw;
+        width: 60vw;
+        height: 30vw;
         margin: 4.5vw;
+    }
+
+    .card-header {
+        justify-content: center;
     }
 
     .card-header h3 {
         font-size: 5vw;
+        margin-left: 2vw;
     }
 
     .card-header img {

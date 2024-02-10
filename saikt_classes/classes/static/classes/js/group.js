@@ -67,6 +67,10 @@ try {
                 xp_values[i].setAttribute("value", input_value[i].value)
             }
 
+            type_input = document.querySelector(".type_input")
+            type_input.setAttribute("value", "lesson")
+
+
         }
         else {
             input_value = document.querySelectorAll(".bonus-input")
@@ -74,6 +78,11 @@ try {
             for (let i = 0; i < input_value.length; i++) {
                 xp_values[i].setAttribute("value", input_value[i].value)
             }
+
+            type_input = document.querySelector(".type_input")
+            type_input.setAttribute("value", "bonus")
+            alert(type_input.value)
+
         }
     }
 

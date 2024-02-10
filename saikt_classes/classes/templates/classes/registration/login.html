@@ -9,7 +9,7 @@
 {% block content %}
 <form method="POST" novalidate>
 	{% csrf_token %}
-	<div id="login-logo"><img src="{% static "classes/img/person.png" %}" alt=""></div>
+	<img src="{% static "classes/img/person.png" %}" id="login-logo" alt="">
 	<p id='login-p'>Вход</p>
 	<div class="input-wrapper">
 		<input type="text" name="username" maxlength="65" required id="id_username" class="text-input" placeholder="Имя профиля">

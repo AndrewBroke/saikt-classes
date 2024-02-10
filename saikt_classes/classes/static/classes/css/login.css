@@ -9,11 +9,11 @@ main {
     height: 90%;
 }
 
-#login-logo img {
+#login-logo {
     width: 8vw;
     position: absolute;
-    left: 49%;
-    top: 23%;
+    left: calc(50% - 4vw);
+    top: -4vw;
 }
 
 #login-p {
@@ -32,6 +32,7 @@ form {
     border-radius: 0.5vw;
     padding: 1vw;
     padding-top: 5vw;
+    position: relative;
 }
 
 .input-wrapper {
@@ -69,14 +70,15 @@ form {
 /* Адаптив */
 @media screen and (max-width : 420px) {
 
-    #login-logo img {
-        top: 25%;
-        left: 46%;
+    #login-logo {
+        width: 16vw;
+        left: calc(50% - 8vw);
+        top: -8vw;
     }
 
     form {
         width: 80%;
-        height: 40%;
+        height: 60vw;
         border-radius: 3vw;
     }
 
