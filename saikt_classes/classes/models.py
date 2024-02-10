@@ -57,11 +57,16 @@ class Student(models.Model):
     )
     is_right_hand = models.BooleanField(default=False)
     def __str__(self):
-        return self.name + " || " + str(self.course_id)
+        return self.name + " " + self.surname + " || " + str(self.course_id)
 
 class LogEvent(models.Model):
     description = models.TextField(null=False, blank=True)
     datetime = models.DateTimeField()
-    user = models.ManyToManyField(Student)
+    user = models.ForeignKey(
+        'Student',
+        on_delete=models.CASCADE, 
+        null=True, blank=True
+    )
+    changes = models.JSONField(null=True, blank=True)
     def __str__(self):
-        return self.datetime
+        return str(self.datetime)

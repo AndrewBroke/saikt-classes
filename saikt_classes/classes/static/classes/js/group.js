@@ -81,8 +81,6 @@ try {
 
             type_input = document.querySelector(".type_input")
             type_input.setAttribute("value", "bonus")
-            alert(type_input.value)
-
         }
     }
 

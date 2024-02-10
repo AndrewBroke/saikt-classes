@@ -1,0 +1,23 @@
+{% extends 'classes/base.html' %}
+{% load static %}
+{% load extras %}
+
+{% block load_css %}
+<link rel="stylesheet" href="{% static 'classes/css/logs.css' %}">
+{% endblock load_css %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>Тип</th>
+        <th>Изменение</th>
+        <th>Изменитель</th>
+        <th>Дата и время</th>
+    </tr>
+</table>
+
+{% for log in logs %}
+{% endfor %}
+{% endblock content %}
+

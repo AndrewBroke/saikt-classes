@@ -54,16 +54,23 @@ def group(request, course_id):
         students = Student.objects.filter(course_id = course_id)
 
         if request.method == "POST":
+            now = datetime.now()
+            log_time = now.strftime("%d/%m/%Y %H:%M:%S")
 
+            change_type = request.POST.get("type")
+
+            description = f"Change xp values type: {change_type}"
+
+            changes = {}
             for student in students:
                 xp_value = request.POST.get(str(student.pk))
                 student.xp_score = student.xp_score + int(xp_value)
                 student.save()
-                
-                #Логи
-                now = datetime.now()
-                datetime = now.strftime("%d/%m/%Y %H:%M:%S")
 
+                changes[str(student.pk)] = int(xp_value)
+            
+            logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
+            logevent.save()
 
         context = {
             "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
@@ -71,7 +78,8 @@ def group(request, course_id):
             "student": sender
         }
         return render(request, 'classes/group.html', context)
-    except:
+    except Exception as e:
+        print(e)
         return render(request, 'classes/group.html')
 
 
@@ -118,3 +126,14 @@ def login(request):
 
 def logout(request):
     return redirect("index")
+
+def logs(request):
+
+    logs = LogEvent.objects.all()
+
+    context = {
+            "title": "Логи",
+            "logs": logs
+    }
+
+    return render(request, 'classes/logs.html', context)
