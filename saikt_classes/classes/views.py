@@ -10,6 +10,9 @@ from .forms import LoginForm
 
 # Create your views here.
 
+def main_page_view(request):
+    return redirect('index')
+
 @login_required(login_url="login")
 def index(request):
     try:
