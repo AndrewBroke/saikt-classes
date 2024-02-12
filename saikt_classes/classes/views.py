@@ -39,9 +39,12 @@ def index(request):
 @login_required(login_url="login")
 def group(request, course_id):
     try:
-        sender = Student.objects.get(user = request.user)
-        if sender.course_id.pk != course_id and not request.user.is_staff:
-            return redirect('index')
+        try:
+            sender = Student.objects.get(user = request.user)
+            if sender.course_id.pk != course_id and not request.user.is_staff:
+                return redirect('index')
+        except:
+            sender = request.user
 
         course = Group.objects.get(pk = course_id)
 
