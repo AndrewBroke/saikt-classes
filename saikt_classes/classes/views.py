@@ -44,7 +44,7 @@ def group(request, course_id):
             if sender.course_id.pk != course_id and not request.user.is_staff:
                 return redirect('index')
         except:
-            sender = request.user
+            sender = Student.objects.get(name = "admin")
 
         course = Group.objects.get(pk = course_id)
 
@@ -72,10 +72,7 @@ def group(request, course_id):
 
                 changes[str(student.pk)] = int(xp_value)
 
-            if sender == request.user:
-                logevent = LogEvent(description=description, datetime=now, changes=changes)
-            else:
-                logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
+            logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
 
             logevent.save()
 
