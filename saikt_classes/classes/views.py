@@ -71,8 +71,12 @@ def group(request, course_id):
                 student.save()
 
                 changes[str(student.pk)] = int(xp_value)
-            
-            logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
+
+            if sender == request.user:
+                logevent = LogEvent(description=description, datetime=now, changes=changes)
+            else:
+                logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
+
             logevent.save()
 
         context = {
