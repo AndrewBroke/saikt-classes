@@ -86,9 +86,9 @@ def group(request, course_id):
                 logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
 
                 logevent.save()
+                check_role(students)
 
 
-        check_role(students)
         context = {
             "title": f"{course.course} {wd_output} {course.time.strftime('%H:%M')}",
             "students": students,
