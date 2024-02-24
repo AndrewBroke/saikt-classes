@@ -32,6 +32,7 @@ class Group(models.Model):
 
 class Role(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False)
+    target_xp = models.IntegerField(null=False, blank=False, default=0)
     def __str__(self):
         return self.name
 
