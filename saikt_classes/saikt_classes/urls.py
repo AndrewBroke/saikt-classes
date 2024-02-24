@@ -23,7 +23,8 @@ from classes import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('classes/', include("classes.urls"), name="classes"),
-    path("login/", views.login, name="login")
+    path("login/", views.login, name="login"),
+    path("", views.main_page_view)
 ]
 
 if settings.DEBUG:
