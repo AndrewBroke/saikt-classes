@@ -181,37 +181,40 @@ def validate_xp(data, students):
 
 def check_role(students):
     roles = Role.objects.all().order_by('target_xp')
+    print(roles)
     for student in students:
-        if student.role:
-            
-            #ищем индекс нынешней роли (так как у QuerySet нет index() я просто написал свой *- * )
-            current_role = Role.objects.get(pk = student.role.pk)
-            for i in range(len(roles)):
-                if roles[i] == current_role:
-                    role_index = i
-                    break
+        # Если у студента нет роли, присваиваем ему самую первую
+        if not student.role:
+            student.role = roles[0]
+            student.save()
+
+        current_role = Role.objects.get(pk = student.role.pk)
+        for i in range(len(roles)):
+            if roles[i] == current_role:
+                role_index = i
+                break
+            else:
+                role_index = -1
+
+        #трай нужен чтобы если у студента и так максимальная роль не вылезла ошибка а просто не изменялась роль
+        try:
+            #цикл я сделал чтобы если резко перейти с 1 роли на несколько вперёд ничего не поломалось
+            while True:
+
+                #если баллов меньше чем нужно для нашей корректной роли
+                if student.xp_score < student.role.target_xp:
+                    student.role = roles[role_index - 1]
+                    role_index -= 1
+                    student.save()
+                    continue
+                #если больше
+                elif student.xp_score >= roles[role_index + 1].target_xp:
+                    student.role = roles[role_index + 1]
+                    role_index += 1
+                    student.save()
+                    continue
                 else:
-                    role_index = -1
-
-            #трай нужен чтобы если у студента и так максимальная роль не вылезла ошибка а просто не изменялась роль
-            try:
-                #цикл я сделал чтобы если резко перейти с 1 роли на несколько вперёд ничего не поломалось
-                while True:
-
-                    #если баллов меньше чем нужно для нашей корректной роли
-                    if student.xp_score < student.role.target_xp:
-                        student.role = roles[role_index - 1]
-                        role_index -= 1
-                        student.save()
-                        continue
-                    #если больше
-                    elif student.xp_score >= roles[role_index + 1].target_xp:
-                        student.role = roles[role_index + 1]
-                        role_index += 1
-                        student.save()
-                        continue
-                    else:
-                        break
-            except Exception as e:
-                print(e)
-            return
+                    break
+        except Exception as e:
+            print(e)
+        
