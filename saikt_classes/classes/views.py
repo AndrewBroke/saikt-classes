@@ -17,7 +17,8 @@ def main_page_view(request):
 def index(request):
     try:
         if request.user.is_staff:
-            groups = Group.objects.all()
+            admin_course = Course.objects.get(name="Admin")
+            groups = Group.objects.all().exclude(course=admin_course)
         else:
             student = Student.objects.get(user = request.user)
             groups = Group.objects.filter(pk = student.course_id.pk)
