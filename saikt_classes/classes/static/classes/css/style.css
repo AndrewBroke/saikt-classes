@@ -141,7 +141,7 @@ header {
     width: 4vw;
 }
 
-.card-section-text {
+.cards-section-text {
     font-size: 1.5vw;
 }
 
@@ -163,7 +163,7 @@ header {
     margin-right: 0.5vw;
 }
 
-.card-content {
+.cards-content {
     display: flex;
     flex-direction: column;
     justify-content: space-around;

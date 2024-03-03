@@ -64,6 +64,10 @@ def group(request, course_id):
         if len(students) % 2 == 1:
             column_len += 1
 
+        leaders = []
+        for i in range(3):
+            leaders.append(students[i].pk)
+
         students1 = students[0:column_len]
         students2 = students[column_len: len(students)]
 
@@ -95,7 +99,8 @@ def group(request, course_id):
             "students": students,
             "students1": students1,
             "students2": students2,
-            "student": sender
+            "student": sender,
+            "leaders": leaders
         }
         return render(request, 'classes/group.html', context)
     except Exception as e:

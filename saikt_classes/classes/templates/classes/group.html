@@ -7,17 +7,36 @@
 {% endblock load_css %}
 
 {% block content %}
+<style>
+    .leader0:before {
+        content: url({% static "classes/img/first.png" %});
+        position: absolute;
+        left: 5.5vw;
+    }
+    .leader1:before {
+        content: url({% static "classes/img/first.png" %});
+        position: absolute;
+        left: 5.5vw;
+    }
+    .leader2:before {
+        content: url({% static "classes/img/first.png" %});
+        position: absolute;
+        left: 5.5vw;
+    }
+</style>
 <div id="table-container">
     <form action="#" method='POST'>{% csrf_token %}
         <section id="cards-section">
             <div class="cards-container">
-                {% for student in students2 %}
-                <div class="card-wrapper">
+                {% for student in students1 %}
+                <div class="card-wrapper{% if student.pk in leaders %} leader{{leaders|index:student.pk}}{% endif %}">
                     <div class="student-card">
                         <div class="student-info">
                             <img src="{% static "classes/img/man2.png" %}" alt="">
+                            <div class="student-text">
                             <span class="student-name">{{ student.name }} {{ student.surname }}</span>
                             <span class="student-role">({% if student.role %}{{ student.role }}{% else %}Нет{% endif %})</span>
+                            </div>
                         </div>
                         <div class="student-xp">
                             <span>{{ student.xp_score }}</span>
@@ -47,13 +66,15 @@
                 {% endfor %}
             </div>
             <div class="cards-container">
-                {% for student in students1 %}
-                <div class="card-wrapper">
+                {% for student in students2 %}
+                <div class="card-wrapper{% if student.pk in leaders %} leader{{leaders|index:student.pk}}{% endif %}">
                     <div class="student-card">
                         <div class="student-info">
                             <img src="{% static "classes/img/man2.png" %}" alt="">
-                            <span class="student-name">{{ student.name }} {{ student.surname }}</span>
-                            <span class="student-role">({% if student.role %}{{ student.role }}{% else %}Нет{% endif %})</span>
+                            <div class="student-text">
+                                <span class="student-name">{{ student.name }} {{ student.surname }}</span>
+                                <span class="student-role">({% if student.role %}{{ student.role }}{% else %}Нет{% endif %})</span>
+                            </div>
                         </div>
                         <div class="student-xp">
                             <span>{{ student.xp_score }}</span>
