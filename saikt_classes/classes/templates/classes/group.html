@@ -39,6 +39,17 @@
         height: 3vw;
     }
 
+    .right_hand:after {
+        content: "";
+        background-image: url({% static "classes/img/leader.png" %});
+        background-size: cover;
+        position: absolute;
+        width: 1.5vw;
+        height: 1.5vw;
+        top: 0.5vw;
+        right: -2vw;
+    }
+
     @media screen and (max-width: 420px) {
         .leader0:before {
             width: 10vw;
@@ -58,6 +69,17 @@
             top: -2vw;
             left: -4vw;
         }
+
+        .right_hand:after {
+            content: "";
+            background-image: url({% static "classes/img/leader.png" %});
+            background-size: cover;
+            position: absolute;
+            width: 4.5vw;
+            height: 4.5vw;
+            top: 0vw;
+            right: -5vw;
+        }
     }
 </style>
 <div id="table-container">
@@ -70,7 +92,7 @@
                         <div class="student-info">
                             <img src="{% static "classes/img/man2.png" %}" alt="">
                             <div class="student-text">
-                            <span class="student-name">{{ student.name }} {{ student.surname }}</span>
+                            <span class="student-name{% if student.is_right_hand %} right_hand{% endif %}">{{ student.name }} {{ student.surname }}</span>
                             <span class="student-role">({% if student.role %}{{ student.role }}{% else %}Нет{% endif %})</span>
                             </div>
                         </div>
