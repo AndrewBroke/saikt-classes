@@ -9,19 +9,55 @@
 {% block content %}
 <style>
     .leader0:before {
-        content: url({% static "classes/img/first.png" %});
+        content: "";
+        background-image: url({% static "classes/img/first.png" %});
+        background-size: cover;
         position: absolute;
-        left: 5.5vw;
+        left: -1vw;
+        top: -1vw;
+        width: 3vw;
+        height: 3vw;
     }
     .leader1:before {
-        content: url({% static "classes/img/first.png" %});
+        content: "";
+        background-image: url({% static "classes/img/second.png" %});
+        background-size: cover;
         position: absolute;
-        left: 5.5vw;
+        left: -1vw;
+        top: -1vw;
+        width: 3vw;
+        height: 3vw;
     }
     .leader2:before {
-        content: url({% static "classes/img/first.png" %});
+        content: "";
+        background-image: url({% static "classes/img/third.png" %});
+        background-size: cover;
         position: absolute;
-        left: 5.5vw;
+        left: -1vw;
+        top: -1vw;
+        width: 3vw;
+        height: 3vw;
+    }
+
+    @media screen and (max-width: 420px) {
+        .leader0:before {
+            width: 10vw;
+            height: 10vw;
+            top: -2vw;
+            left: -4vw;
+        }
+        .leader1:before {
+            width: 10vw;
+            height: 10vw;
+            top: -2vw;
+            left: -4vw;
+        }
+        .leader2:before {
+            width: 10vw;
+            height: 10vw;
+            top: -2vw;
+            left: -4vw;
+        }
     }
 </style>
 <div id="table-container">
