@@ -155,10 +155,25 @@ def logout(request):
 def logs(request):
 
     logs = LogEvent.objects.all()
+    final_logs = []
+
+    changes = []
+    
+    for log in logs:
+        row = []
+        for change in log.changes:
+            # if log.changes[change] != 0:
+                student = Student.objects.get(pk = change)
+                username = student.surname + " " + student.name[0] + ": " + str(log.changes[change])
+                changes.append(username)
+                final_logs.append(change)
+
+    print(changes)
 
     context = {
             "title": "Логи",
-            "logs": logs
+            "logs": logs,
+            "changes": changes
     }
 
     return render(request, 'classes/logs.html', context)

@@ -15,9 +15,22 @@
         <th>Изменитель</th>
         <th>Дата и время</th>
     </tr>
-</table>
+    {% for log in logs %}
+    <tr>
+        <td>{{ log.description }}</td>
+        <td>
 
-{% for log in logs %}
-{% endfor %}
+            {{ changes }}
+
+            {% comment %} Фамилия И: +-10xp
+            Фамилия И: +-10xp
+            Фамилия И: +-10xp
+            Фамилия И: +-10xp {% endcomment %}
+        </td>
+        <td>{{ log.user.user }}</td>
+        <td>{{ log.Datetime|date:'Y-m-d' }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock content %}
 
