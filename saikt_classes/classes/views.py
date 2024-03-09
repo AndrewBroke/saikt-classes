@@ -155,20 +155,14 @@ def logout(request):
 def logs(request):
 
     logs = LogEvent.objects.all()
-    final_logs = []
 
     changes = []
     
     for log in logs:
-        row = []
-        for change in log.changes:
-            # if log.changes[change] != 0:
-                student = Student.objects.get(pk = change)
-                username = student.surname + " " + student.name[0] + ": " + str(log.changes[change])
-                changes.append(username)
-                final_logs.append(change)
+        row = ""
+        reduceString(log.changes)
 
-    print(changes)
+
 
     context = {
             "title": "Логи",
@@ -201,7 +195,6 @@ def validate_xp(data, students):
 
 def check_role(students):
     roles = Role.objects.all().order_by('target_xp')
-    print(roles)
     for student in students:
         # Если у студента нет роли, присваиваем ему самую первую
         if not student.role:
@@ -238,3 +231,19 @@ def check_role(students):
         except Exception as e:
             print(e)
         
+
+def reduceString(logs):
+    changes = ""
+    changes_dict = {}
+    for log in logs:
+        student = Student.objects.get(pk = int(log))
+        change = student.surname + " " + student.name[0]
+        try:
+            changes_dict[logs[log]].append(change)
+        except KeyError:
+            changes_dict[logs[log]] = []
+            changes_dict[logs[log]].append(change)
+
+    for change in changes_dict:
+        changes += f'{", ".join(changes_dict[change])}: {change} \n'
+    return changes
