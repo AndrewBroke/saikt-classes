@@ -15,20 +15,20 @@
         <th>Изменитель</th>
         <th>Дата и время</th>
     </tr>
-    {% for log in logs %}
+    {% for change in changes %}
     <tr>
-        <td>{{ log.description }}</td>
+        <td>{{ change.type }}</td>
         <td>
 
-            
+            {{ change.change }}
 
             {% comment %} Фамилия И: +-10xp
             Фамилия И: +-10xp
             Фамилия И: +-10xp
             Фамилия И: +-10xp {% endcomment %}
         </td>
-        <td>{{ log.user.user }}</td>
-        <td>{{ log.Datetime|date:'Y-m-d' }}</td>
+        <td>{{ change.changer }}</td>
+        <td>{{ change.datetime }}</td>
     </tr>
     {% endfor %}
 </table>

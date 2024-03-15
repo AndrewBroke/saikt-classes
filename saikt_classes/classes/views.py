@@ -159,9 +159,19 @@ def logs(request):
     changes = []
     
     for log in logs:
-        row = ""
-        reduceString(log.changes)
-
+        row = {}
+        log_changes = reduceString(log.changes)
+        log_type = "Занятие"
+        log_changer = log.user.surname + " " + log.user.name[0]
+        log_date = str(log.datetime).split()[0].replace("-", ".")
+        log_time = str(log.datetime).split()[1].split(".")[0].split(":")
+        log_time = log_time[0] + ":" + log_time[1]
+        log_datetime = log_date + " " + log_time
+        row["type"] = log_type
+        row["change"] = log_changes
+        row["changer"] = log_changer
+        row["datetime"] = log_datetime
+        changes.append(row)
 
 
     context = {
@@ -245,5 +255,5 @@ def reduceString(logs):
             changes_dict[logs[log]].append(change)
 
     for change in changes_dict:
-        changes += f'{", ".join(changes_dict[change])}: {change} \n'
+        changes += f'{", ".join(changes_dict[change])}: {change}; '
     return changes
