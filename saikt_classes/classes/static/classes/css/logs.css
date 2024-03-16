@@ -1,0 +1,24 @@
+tr:first-child {
+    background-color: #1EA7E2;
+    
+}
+
+td {
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+table {
+    background-color: #a6d6ec66;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-collapse: collapse;
+    padding: 0 1vw;
+    text-align: center;
+}
