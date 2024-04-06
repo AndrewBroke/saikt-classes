@@ -21,4 +21,9 @@ th, td {
     border-collapse: collapse;
     padding: 0 1vw;
     text-align: center;
+    font-size: 1vw;
+}
+
+tr {
+    height: 3vw;
 }

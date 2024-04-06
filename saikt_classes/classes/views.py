@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from datetime import datetime
 from .models import *
@@ -81,16 +82,19 @@ def group(request, course_id):
                 description = f"Change xp values type: {change_type}"
 
                 changes = {}
+                no_changes = False
                 for student in students:
                     xp_value = request.POST.get(str(student.pk))
                     student.xp_score = student.xp_score + int(xp_value)
                     student.save()
-
                     changes[str(student.pk)] = int(xp_value)
+                    if not no_changes and xp_value != "0":
+                        no_changes = True
 
-                logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
+                if no_changes:
+                    logevent = LogEvent(description=description, datetime=now, user=sender, changes=changes)
 
-                logevent.save()
+                    logevent.save()
                 check_role(students)
 
 
@@ -152,9 +156,17 @@ def login(request):
 def logout(request):
     return redirect("index")
 
+@login_required(login_url="login")
 def logs(request):
 
-    logs = LogEvent.objects.all()
+    if not request.user.is_staff:
+        return redirect("index")
+
+    logs = LogEvent.objects.all().order_by('-datetime')
+
+    filter = request.POST.get("filters")
+    print(filter)
+    date = request.POST.get("date")
 
     changes = []
     
@@ -171,13 +183,37 @@ def logs(request):
         row["change"] = log_changes
         row["changer"] = log_changer
         row["datetime"] = log_datetime
-        changes.append(row)
+        row["log_pk"] = log.pk
+        if filter == "submit":
+            if date != "":
+                print(log_date.replace(".", "-"))
+                print(date)
+                print("========")
+                if date == log_date.replace(".", "-"):
+                    changes.append(row)
+            else:
+                changes.append(row)
+        else:
+            changes.append(row)
 
+
+    paginator = Paginator(changes, 15)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    if request.GET.get("cancel"):
+        change_log_pk = request.GET.get("cancel")
+        print(change_log_pk)
+        current_log = LogEvent.objects.get(pk=change_log_pk)
+        log_rollback(current_log)
+        return redirect("logs")
+    
 
     context = {
             "title": "Логи",
             "logs": logs,
-            "changes": changes
+            "changes": changes,
+            "page_obj": page_obj
     }
 
     return render(request, 'classes/logs.html', context)
@@ -257,3 +293,13 @@ def reduceString(logs):
     for change in changes_dict:
         changes += f'{", ".join(changes_dict[change])}: {change}; '
     return changes
+
+def log_rollback(log):
+    students = []
+    for change in log.changes:
+        student = Student.objects.get(pk=change)
+        student.xp_score -= log.changes[change]
+        student.save()
+        students.append(student)
+    check_role(students)
+    log.delete()

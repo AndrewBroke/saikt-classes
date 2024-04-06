@@ -8,29 +8,46 @@
 
 {% block content %}
 
+<div>
+    <form method="POST">{% csrf_token %}
+        <p>Фильтры:</p>
+        <label for="date">По дате</label>
+        <input name="date" type="date">
+        <label for="group">По группам</label>
+        <input name="group" type="text">
+        <button class="submit_btn">Применить фильтры</button>
+        <button class="clear_btn">Очистить фильтры</button>
+
+        <input class="filter_input" type="hidden" name="filters">
+    </form>
+
+</div>
+
 <table>
     <tr>
         <th>Тип</th>
         <th>Изменение</th>
         <th>Изменитель</th>
         <th>Дата и время</th>
+        <th>X</th>
     </tr>
-    {% for change in changes %}
+    {% for change in page_obj %}
     <tr>
         <td>{{ change.type }}</td>
         <td>
-
             {{ change.change }}
-
-            {% comment %} Фамилия И: +-10xp
-            Фамилия И: +-10xp
-            Фамилия И: +-10xp
-            Фамилия И: +-10xp {% endcomment %}
         </td>
         <td>{{ change.changer }}</td>
         <td>{{ change.datetime }}</td>
+        <td><a href="?cancel={{ change.log_pk }}">X</a></td>
     </tr>
     {% endfor %}
 </table>
+{% for pages in page_obj.paginator %}
+<a href="?page={{ pages.number }}">{{ pages.number }}</a>
+{% endfor %}
 {% endblock content %}
 
+{% block load_js %}
+<script src="{% static "classes/js/logs.js" %}"></script>
+{% endblock load_js %}
