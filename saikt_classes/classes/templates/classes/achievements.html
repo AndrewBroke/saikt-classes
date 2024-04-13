@@ -1,0 +1,46 @@
+{% extends 'classes/base.html' %}
+{% load static %}
+
+{% block load_css %}
+<link rel="stylesheet" href="{% static 'classes/css/achievements.css' %}">
+{% endblock load_css %}
+
+{% block content %}
+<form method="POST">{% csrf_token %}
+    <label for="groups">Группы</label>
+    <select name="groups" id="groups">
+        <option value="empty">-select-</option>
+        {% for group in groups %}
+        <option value="{{ group.pk }}">{{ group.course }} {{ group.time|time:"H:i" }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    {% for group in groups %}
+    <select name="{{ group.pk }}" id="{{ group.pk }}" class="group_select">
+        {% for student in students %}
+            {% if student.course_id.pk == group.pk %}
+            <option value="{{ student.surname }}">{{ student.surname }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    {% endfor %}
+    <div>
+        <label for="achievements">Достижение</label>
+        <select name="achievements" id="achievements">
+            {% for achievement in achievements %}
+            <option value="{{ achievement.name }}">{{ achievement.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    </select>
+    <div>
+        <button type="submit" id="roleBtn">Добавить достижение</button>
+    </div>
+</form>
+{% endblock content %}
+
+
+{% block load_js %}
+<script src="{% static "classes/js/achivements.js" %}"></script>
+{% endblock load_js %}

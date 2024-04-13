@@ -218,6 +218,38 @@ def logs(request):
 
     return render(request, 'classes/logs.html', context)
 
+def achievements(request):
+
+    students = Student.objects.all()
+    groups = Group.objects.all()
+    achievements = Achievement.objects.all()
+
+    if request.POST.get("groups"):
+        form_student = request.POST.get(str(request.POST.get("groups")))
+        form_achievement = request.POST.get("achievements")
+
+        student = Student.objects.get(surname = form_student)
+        achievement = Achievement.objects.get(name = form_achievement)
+
+        student.achievement.add(achievement)
+        student.save()
+
+
+
+
+
+
+    context = {
+        "title": "Достижения",
+        "groups": groups,
+        "students": students,
+        "achievements": achievements
+    }
+
+    return render(request, 'classes/achievements.html', context)
+
+
+
 
 def validate_xp(data, students):
     for student in students:
