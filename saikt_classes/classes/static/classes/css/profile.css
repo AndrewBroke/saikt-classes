@@ -1,0 +1,78 @@
+* {
+    text-align: center;
+}
+
+main {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile_case {
+    width: 40%;
+    margin-bottom: 7.5vw;
+}
+
+.profile_logo {
+    margin-bottom: 1vw;
+}
+
+.profile_logo img {
+    width: 12vw;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 3vw;
+}
+
+.profile_course {
+    font-size: 1.5vw;
+    color: #6C6C6C;
+}
+
+#profile_statistics {
+    height: 10vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile_stat {
+    width: 40vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.profile_stat p {
+    font-size: 2vw;
+    color: #6C6C6C;
+}
+
+h3 {
+    font-weight: 500;
+    font-size: 3vw;
+    margin-bottom: 1vw;
+}
+
+.profile_achievements {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.profile_line {
+    background-color: black;
+    width: 0.2vw;
+    height: 100%;
+    margin: 0 5vw 0 5vw ;
+}
+
+.achievement {
+    width: 5vw;
+}

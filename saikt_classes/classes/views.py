@@ -218,7 +218,11 @@ def logs(request):
 
     return render(request, 'classes/logs.html', context)
 
+@login_required(login_url="login")
 def achievements(request):
+
+    if not request.user.is_staff:
+        return redirect("index")
 
     students = Student.objects.all()
     groups = Group.objects.all()
@@ -248,7 +252,17 @@ def achievements(request):
 
     return render(request, 'classes/achievements.html', context)
 
+@login_required(login_url="login")
+def profile(request):
 
+    student = Student.objects.get(user = request.user.pk)
+
+    context = {
+        "title": "Профиль",
+        "student": student,
+    }
+
+    return render(request, 'classes/profile.html', context)
 
 
 def validate_xp(data, students):

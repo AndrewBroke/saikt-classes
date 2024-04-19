@@ -1,0 +1,38 @@
+{% extends 'classes/base.html' %}
+{% load static %}
+
+{% block load_css %}
+<link rel="stylesheet" href="{% static 'classes/css/profile.css' %}">
+{% endblock load_css %}
+
+
+{% block content %}
+{% comment %} Hello, world {% endcomment %}
+
+<section id="profile_case">
+    <div class="profile_logo"><img src="{% static "classes/img/person.png" %}" alt=""></div>
+    <h2 class="profile_name">{{ student.name }} {{ student.surname }}</h2>
+    <p class="profile_course">{{ student.course_id }}</p>
+</section>
+<section id="profile_statistics">
+    <div class="profile_stat">
+        <h3 class="xp_number">238</h3>
+        <p class="role">Магистр</p>
+    </div>
+    <div class="profile_line"></div>
+    <div class="profile_stat">
+        <h3>Достижения</h3>
+        <div class="profile_achievements">
+            {% for achievement in student.achievement.all %}
+            <p><img class="achievement" src="{{ achievement.image.url }}" alt=""></p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+
+{% block load_js %}
+<script src="{% static "classes/js/profilejs" %}"></script>
+{% endblock load_js %}
